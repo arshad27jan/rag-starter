@@ -27,10 +27,10 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ added });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Upload error:", err);
     return NextResponse.json(
-      { error: err?.message || "Internal Server Error" },
+      { error: (err as Error)?.message || "Internal Server Error" },
       { status: 500 }
     );
   }

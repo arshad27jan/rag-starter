@@ -13,8 +13,8 @@ export async function POST(req: NextRequest) {
     const text = await fetchWebsiteText(url);
     const res = await indexText(sessionId, text);
     return NextResponse.json({ added: res.added });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Index URL error:", err);
-    return NextResponse.json({ error: err?.message || "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ error: (err as Error)?.message || "Internal Server Error" }, { status: 500 });
   }
 }

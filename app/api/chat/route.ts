@@ -34,10 +34,10 @@ export async function POST(req: NextRequest) {
     //   context.map((c, i) => `[${i + 1}] ${c.text.slice(0, 300)}…`).join("\n\n");
 
     return NextResponse.json({ answer, sources: context });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Chat route error:", err);
     return NextResponse.json(
-      { error: err?.message ?? "Internal Server Error" },
+      { error: (err as Error)?.message ?? "Internal Server Error" },
       { status: 500 }
     );
   }
